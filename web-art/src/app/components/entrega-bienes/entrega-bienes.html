@@ -10,27 +10,27 @@
       [(ngModel)]="idComprobante"
       placeholder="Ej: 2568"
     />
-    <button (click)="consultar()" [disabled]="cargando()">Buscar</button>
+    <button (click)="paginador.consultar()" [disabled]="paginador.cargando()">Buscar</button>
   </div>
 
   <!-- Mensajes de estado -->
-  @if (cargando()) {
+  @if (paginador.cargando()) {
     <p class="mensaje">Cargando...</p>
   }
 
-  @if (error()) {
-    <p class="error">{{ error() }}</p>
+  @if (paginador.error()) {
+    <p class="error">{{ paginador.error() }}</p>
   }
 
   <!-- Datos de los comprobantes -->
-  @if (comprobantes().length > 0) {
+  @if (paginador.items().length > 0) {
     <app-generic-table
-      [data]="comprobantes()"
+      [data]="paginador.items()"
       [columns]="columnas"
-      [totalElements]="totalElements()"
-      [pageIndex]="page()"
-      [pageSize]="size()"
-      (pageChange)="cambiarPagina($event)"
+      [totalElements]="paginador.totalElements()"
+      [pageIndex]="paginador.page()"
+      [pageSize]="paginador.size()"
+      (pageChange)="paginador.cambiarPagina($event)"
     />
   }
 </div>

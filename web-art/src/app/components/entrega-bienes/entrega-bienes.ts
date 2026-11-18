@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PageEvent } from '@angular/material/paginator';
 import { BienesService } from '../../services/bienesService';
 import { Comprobante } from '../../models/comprobante';
 import { TableColumn } from '../../models/table-column';
 import { GenericTable } from '../generic-table/generic-table';
+import { createPaginator } from '../../utils/create-paginator';
 
 @Component({
   selector: 'app-entrega-bienes',
@@ -13,15 +13,9 @@ import { GenericTable } from '../generic-table/generic-table';
   styleUrl: './entrega-bienes.scss',
 })
 export class EntregaBienes {
-  bienesService = inject(BienesService);
+  private readonly bienesService = inject(BienesService);
 
   idComprobante = signal(2568);
-  comprobantes = signal<Comprobante[]>([]);
-  totalElements = signal(0);
-  page = signal(0);
-  size = signal(10);
-  cargando = signal(false);
-  error = signal('');
 
   columnas: TableColumn<Comprobante>[] = [
     { key: 'numeroComprobante', header: 'N° Comprobante' },
@@ -37,33 +31,7 @@ export class EntregaBienes {
     { key: 'precioTotal', header: 'Precio Total' },
   ];
 
-  consultar(): void {
-    this.page.set(0);
-    this.cargarComprobantes();
-  }
-
-  cambiarPagina(event: PageEvent): void {
-    this.page.set(event.pageIndex);
-    this.size.set(event.pageSize);
-    this.cargarComprobantes();
-  }
-
-  cargarComprobantes(): void {
-    this.cargando.set(true);
-    this.error.set('');
-
-    this.bienesService
-      .obtenerComprobante(this.idComprobante(), this.page(), this.size())
-      .subscribe({
-        next: (response) => {
-          this.comprobantes.set(response.content);
-          this.totalElements.set(response.totalElements);
-          this.cargando.set(false);
-        },
-        error: () => {
-          this.error.set('Error al realizar la consulta.');
-          this.cargando.set(false);
-        },
-      });
-  }
+  paginador = createPaginator((page, size) =>
+    this.bienesService.obtenerComprobante(this.idComprobante(), page, size)
+  );
 }
