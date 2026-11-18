@@ -1,0 +1,29 @@
+package com.example.art.config;
+
+import java.net.http.HttpClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.JdkClientHttpRequestFactory;
+import org.springframework.web.client.RestClient;
+
+@Configuration
+@EnableConfigurationProperties(MaterialesApiProperties.class)
+public class RestClientConfig {
+
+    @Bean
+    public RestClient materialesRestClient(MaterialesApiProperties properties) {
+        HttpClient httpClient = HttpClient.newBuilder()
+                .connectTimeout(properties.connectTimeout())
+                .build();
+
+        JdkClientHttpRequestFactory requestFactory = new JdkClientHttpRequestFactory(httpClient);
+        requestFactory.setReadTimeout(properties.readTimeout());
+
+        return RestClient.builder()
+                .requestFactory(requestFactory)
+                .defaultHeader(HttpHeaders.USER_AGENT, "Mozilla/5.0 (compatible; ArtBff/1.0)")
+                .build();
+    }
+}

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: art
+  config:
+    import: optional:classpath:application-local.yaml
+
+app:
+  cors:
+    allowed-origins:
+      - http://localhost:4200
+  materiales-api:
+    url: ${MATERIALES_API_URL:}
+    connect-timeout: 10s
+    read-timeout: 60s
+  cache:
+    comprobantes:
+      ttl: 10m
+      maximum-size: 20

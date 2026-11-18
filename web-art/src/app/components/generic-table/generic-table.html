@@ -1,0 +1,32 @@
+<div class="table-container mat-elevation-z2">
+  <div class="table-scroll">
+    <table mat-table [dataSource]="data()">
+      @for (col of columns(); track col.key) {
+        <ng-container [matColumnDef]="col.key">
+          <th mat-header-cell *matHeaderCellDef>{{ col.header }}</th>
+          <td mat-cell *matCellDef="let element">{{ element[col.key] }}</td>
+          <!--
+          @if (col.type === 'date') {
+            {{ row[col.key] | date:'shortDate' }}
+          } @else if (col.type === 'currency') {
+            {{ row[col.key] | currency:'ARS' }}
+          } @else {
+            {{ row[col.key] }}
+          -->
+        </ng-container>
+      }
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns()"></tr>
+    </table>
+  </div>
+
+  <mat-paginator
+    [length]="totalElements()"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="pageSizeOptions()"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+  />
+</div>

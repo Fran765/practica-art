@@ -1,0 +1,34 @@
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: Roboto, sans-serif;
+  color: #333;
+}
+
+.buscador {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  input {
+    padding: 0.4rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  button {
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+.mensaje {
+  color: #666;
+}
+
+.error {
+  color: #d32f2f;
+  font-weight: bold;
+}

@@ -1,0 +1,27 @@
+.table-container {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+
+  th.mat-mdc-header-cell {
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 0 16px;
+  }
+
+  td.mat-mdc-cell {
+    white-space: nowrap;
+    padding: 0 16px;
+  }
+}

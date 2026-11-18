@@ -1,0 +1,30 @@
+# =====================================================================
+# Root .gitignore (Monorepo: bff-art + web-art)
+# Project-specific ignores live in bff-art/.gitignore & web-art/.gitignore
+# =====================================================================
+
+# Environment & Local Secrets (NEVER commit real URLs or credentials)
+.env
+.env.*
+!.env.example
+application-local.yaml
+application-local.yml
+application-local.properties
+
+# IDEs & Editors (Root workspace)
+.idea/
+.vscode/
+.junie/
+*.iws
+*.iml
+*.ipr
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
